@@ -1,0 +1,15 @@
+<h3>You have to do list</h3>
+<ul *ngFor="let item of items">
+  <li (click)="onItemClick(item)" *ngIf="!item.isFinished"> {{item.content}}</li>
+</ul>
+
+
+<h3>Finished list</h3>
+<ul *ngFor="let item of items" >
+  <li (click)="onItemClick(item)" *ngIf="item.isFinished">
+    {{item.content}} <span style="color: #ffc107;  font-weight: bold;"> Finished! </span>
+  </li>
+</ul>
+
+<input type="text" placeholder="add new list" #newItem>
+<button (click)="onAddItem(newItem)">ADD</button>

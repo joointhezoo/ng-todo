@@ -1,0 +1,27 @@
+ul{
+  list-style: none;
+  padding: 0;
+}
+li{
+  background: #1b6d85;
+  color: #fff;
+  padding: 8px 15px;
+  cursor: pointer;
+}
+
+input, button {
+  margin-top: 10px;
+  padding: 5px 8px;
+  background: #fff;
+  border: 1px solid #1b6d85;
+}
+
+input::placeholder{
+  color: #567f85;
+}
+
+button{
+  color: #1b6d85;
+  margin-left: 5px;
+  font-weight: bold;
+}
