@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoList, TodoLists } from './todo-list.model';
+import { TodoService } from '../todo.service';
+
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
@@ -7,15 +9,33 @@ import { TodoList, TodoLists } from './todo-list.model';
 })
 export class TodoListComponent implements OnInit {
 
-  items = TodoLists;
+  items:TodoList[];
+  clearItem: TodoList[];
 
-  constructor() { }
+  constructor(private todoService: TodoService) { }
 
   ngOnInit() {
+    this.getItem();
+    this.getClearItem();
+  }
+
+  getClearItem() {
+    this.todoService.getFinished().subscribe(clearLists => this.clearItem = clearLists );
+  }
+
+  getItem() {
+    this.todoService.getTodos().subscribe(items => {
+      debugger;
+      this.items = items});
   }
 
   onItemClick(item: TodoList) {
     item.isFinished = !item.isFinished;
+    console.log(this.items);
+    this.todoService.updateTodo(this.items);
+    this.getItem();
+    this.getClearItem();
+
   }
 
   onAddItem(newItem) {
@@ -24,5 +44,10 @@ export class TodoListComponent implements OnInit {
       isFinished: false
     });
     newItem.value = "";
+  }
+
+  onClear(){
+    this.todoService.cleanFinsihed().subscribe(clearLists => this.items = clearLists );
+    this.clearItem = [];
   }
 }

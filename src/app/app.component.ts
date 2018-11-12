@@ -7,7 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor(){};
+  date;
+
+  constructor(){
+    this.date = new Date();
+  };
 
 
 }

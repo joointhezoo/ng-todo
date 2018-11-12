@@ -1,15 +1,23 @@
+
 <h3>You have to do list</h3>
-<ul *ngFor="let item of items">
-  <li (click)="onItemClick(item)" *ngIf="!item.isFinished"> {{item.content}}</li>
+<ul>
+<li *ngFor="let item of items" (click)="onItemClick(item)" [ngStyle]="{'display': item.isFinished ? 'none' : 'block' }">
+  <ng-container *ngIf='!item.isFinished'>
+    {{item.content}}  </ng-container></li>
 </ul>
 
 
 <h3>Finished list</h3>
-<ul *ngFor="let item of items" >
-  <li (click)="onItemClick(item)" *ngIf="item.isFinished">
-    {{item.content}} <span style="color: #ffc107;  font-weight: bold;"> Finished! </span>
+<ul>
+  <li *ngFor="let item of clearItem" (click)="onItemClick(item)">
+      {{item.content}} <span style="color: #ffc107;  font-weight: bold;"> Finished! </span>
   </li>
 </ul>
+
+<p *ngIf="clearItem.length === 0">You didn't finish yet? </p>
+
+
+<span class="clearBtn" (click)="onClear()" *ngIf="clearItem.length > 0">clear finished list</span>
 
 <input type="text" placeholder="add new list" #newItem>
 <button (click)="onAddItem(newItem)">ADD</button>
