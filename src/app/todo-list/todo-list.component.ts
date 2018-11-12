@@ -31,7 +31,6 @@ export class TodoListComponent implements OnInit {
 
   onItemClick(item: TodoList) {
     item.isFinished = !item.isFinished;
-    console.log(this.items);
     this.todoService.updateTodo(this.items);
     this.getItem();
     this.getClearItem();
