@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { TodoList } from './todo-list.model';
 import { TodoService } from '../todo.service';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css']
+  styleUrls: ['./todo-list.component.css'],
+  encapsulation: ViewEncapsulation.Native
+
 })
 export class TodoListComponent implements OnInit {
 
@@ -35,6 +37,10 @@ export class TodoListComponent implements OnInit {
   }
 
   onAddItem(newItem) {
+    if(newItem.value === ""){
+      return false;
+    }
+
     this.allItems.push({
       content: newItem.value,
       isFinished: false

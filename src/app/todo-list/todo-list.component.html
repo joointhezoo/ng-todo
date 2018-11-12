@@ -3,24 +3,24 @@
   <input type="text" placeholder="search the list" #searchItem (keyup)="onSearchItem(searchItem.value)">
 </div>
 
-<h3>You have to do list</h3>
+<h3>You have to do <span *ngIf="todoItem.length; else emptyTag" >{{todoItem.length}} list</span></h3>
 <ul>
   <li *ngFor="let item of allItems" (click)="onItemClick(item)" [ngStyle]="{'display': item.isFinished || item.hide  ? 'none' : 'block' }">
     {{item.content}}
   </li>
 </ul>
-<p *ngIf="todoItem.length === 0;">** Nothing to do? **</p>
+<ng-template #emptyTag> ** Nothing **</ng-template>
 
-<h3>Finished list</h3>
+<h3>Finished  <span *ngIf="clearItem.length;" >{{clearItem.length}} list</span> </h3>
 <ul>
   <li *ngFor="let item of clearItem" (click)="onItemClick(item)" [ngStyle]="{'display': item.hide  ? 'none' : 'block' }">
       {{item.content}} <span class="finsihed"> Finished! </span>
   </li>
 </ul>
 
-<p *ngIf="clearItem.length === 0; else clearBtn">** You didn't finish yet? **</p>
+<p *ngIf="!clearItem.length; else clearBtn">** You didn't finish yet? **</p>
 <ng-template #clearBtn>
-  <span class="clearBtn" (click)="onClear()" *ngIf="clearItem.length > 0">clear finished list</span>
+  <span class="clearBtn" (click)="onClear()">clear finished list</span>
 </ng-template>
 
 
