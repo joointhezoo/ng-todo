@@ -7,19 +7,22 @@ import { Observable, of } from 'rxjs';
 })
 export class TodoService {
   todoList = TodoLists;
-  tempArr = [];
 
-  cleanFinsihed(): Observable<any> {
-    this.tempArr = [];
-    this.todoList.filter(i => i.isFinished === false ? this.tempArr.push(i): null);
-    this.todoList = this.tempArr;
-    return of(this.todoList);
+  cleanFinished(): Observable<any> {
+    const ObsUnFinish = this.getUnFinished().value;
+    return ObsUnFinish;
+  }
+
+  getUnFinished(): Observable<any> {
+    const emptyArr = [];
+    this.todoList.filter(i => i.isFinished === false? emptyArr.push(i): null);
+    return of(emptyArr);
   }
 
   getFinished(): Observable<any> {
-    this.tempArr = [];
-    this.todoList.filter(i => i.isFinished === true ? this.tempArr.push(i): null);
-    return of(this.tempArr);
+    const emptyArr = [];
+    this.todoList.filter(i => i.isFinished === true ? emptyArr.push(i): null);
+    return of(emptyArr);
   }
 
   getTodos(): Observable<TodoList[]> {

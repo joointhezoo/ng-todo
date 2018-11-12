@@ -1,5 +1,5 @@
 export class TodoList {
-  isFinished : boolean;
+  isFinished: boolean;
   content: string;
 }
 
@@ -23,6 +23,10 @@ export const TodoLists:TodoList[] = [
   {
     isFinished : false,
     content: 'Read an article'
+  },
+  {
+    isFinished : true,
+    content: 'Study Angular2'
   }
 ];
 

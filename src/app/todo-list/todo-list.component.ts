@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoList, TodoLists } from './todo-list.model';
+import { TodoList } from './todo-list.model';
 import { TodoService } from '../todo.service';
 
 @Component({
@@ -9,35 +9,33 @@ import { TodoService } from '../todo.service';
 })
 export class TodoListComponent implements OnInit {
 
-  items:TodoList[];
+  allItems: TodoList[];
+  todoItem: TodoList[];
   clearItem: TodoList[];
 
   constructor(private todoService: TodoService) { }
 
   ngOnInit() {
     this.getItem();
-    this.getClearItem();
-  }
-
-  getClearItem() {
-    this.todoService.getFinished().subscribe(clearLists => this.clearItem = clearLists );
   }
 
   getItem() {
     this.todoService.getTodos().subscribe(items => {
-      this.items = items});
+      this.allItems = items});
+
+    this.todoService.getFinished().subscribe(clearLists => this.clearItem = clearLists );
+    this.todoService.getUnFinished().subscribe(unclearLists => this.todoItem = unclearLists);
+
   }
 
   onItemClick(item: TodoList) {
     item.isFinished = !item.isFinished;
-    this.todoService.updateTodo(this.items);
+    this.todoService.updateTodo(this.allItems);
     this.getItem();
-    this.getClearItem();
-
   }
 
   onAddItem(newItem) {
-    this.items.push({
+    this.allItems.push({
       content: newItem.value,
       isFinished: false
     });
@@ -45,21 +43,20 @@ export class TodoListComponent implements OnInit {
   }
 
   onClear(){
-    this.todoService.cleanFinsihed().subscribe(clearLists => this.items = clearLists );
+    this.allItems = this.todoService.cleanFinished();
     this.clearItem = [];
   }
 
-  onSearchItem(term){
-    term = term.value;
+  onSearchItem(term: string){
     if(term == ""){
-      this.items.filter(item => {
+      this.allItems.filter(item => {
         item.hide !== undefined ? delete item.hide : null;
       });
       return false;
     }
 
-    this.items.filter(item => {
-      item.hide = item.content.match(term) === null ? true : false;
+    this.allItems.filter(item => {
+      item.hide = item.content.match(term) === null;
     });
 
     this.getItem();
