@@ -25,7 +25,6 @@ export class TodoListComponent implements OnInit {
 
   getItem() {
     this.todoService.getTodos().subscribe(items => {
-      debugger;
       this.items = items});
   }
 
@@ -48,5 +47,22 @@ export class TodoListComponent implements OnInit {
   onClear(){
     this.todoService.cleanFinsihed().subscribe(clearLists => this.items = clearLists );
     this.clearItem = [];
+  }
+
+  onSearchItem(term){
+    term = term.value;
+    if(term == ""){
+      this.items.filter(item => {
+        item.hide !== undefined ? delete item.hide : null;
+      });
+      return false;
+    }
+
+    this.items.filter(item => {
+      item.hide = item.content.match(term) === null ? true : false;
+    });
+
+    this.getItem();
+
   }
 }

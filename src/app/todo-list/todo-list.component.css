@@ -35,3 +35,11 @@ button{
   width: 100%;
   margin: 15px 0;
 }
+
+.w100{
+  width: 100%;
+}
+
+span.finsihed{
+  color: #ffc107;  font-weight: bold;
+}

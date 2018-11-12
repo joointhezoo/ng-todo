@@ -1,7 +1,12 @@
 
+<div class="w100">
+  <input  type="text" placeholder="search the list" #searchItem (keyup)="onSearchItem(searchItem)">
+</div>
+
 <h3>You have to do list</h3>
+
 <ul>
-<li *ngFor="let item of items" (click)="onItemClick(item)" [ngStyle]="{'display': item.isFinished ? 'none' : 'block' }">
+<li *ngFor="let item of items" (click)="onItemClick(item)" [ngStyle]="{'display': item.isFinished || item.hide  ? 'none' : 'block' }">
   <ng-container *ngIf='!item.isFinished'>
     {{item.content}}  </ng-container></li>
 </ul>
@@ -9,8 +14,8 @@
 
 <h3>Finished list</h3>
 <ul>
-  <li *ngFor="let item of clearItem" (click)="onItemClick(item)">
-      {{item.content}} <span style="color: #ffc107;  font-weight: bold;"> Finished! </span>
+  <li *ngFor="let item of clearItem" (click)="onItemClick(item)" [ngStyle]="{'display': item.hide  ? 'none' : 'block' }">
+      {{item.content}} <span class="finsihed"> Finished! </span>
   </li>
 </ul>
 
@@ -19,5 +24,7 @@
 
 <span class="clearBtn" (click)="onClear()" *ngIf="clearItem.length > 0">clear finished list</span>
 
-<input type="text" placeholder="add new list" #newItem>
-<button (click)="onAddItem(newItem)">ADD</button>
+<div class="w100">
+  <input type="text" placeholder="add new list" #newItem>
+  <button (click)="onAddItem(newItem)">ADD</button>
+</div>
