@@ -4,13 +4,16 @@ ul{
   margin: 0;
 }
 li{
-  background: #1b6d85;
-  color: #fff;
+  background: #fafafa;
+  color: #575757;
   padding: 8px 15px;
   cursor: pointer;
+  border-bottom: 1px solid #ccc;
 }
+
 li:hover{
-  background: #176578;
+  border-bottom: 1px solid #333;
+  color: #000;
 }
 input, button {
   margin-top: 10px;

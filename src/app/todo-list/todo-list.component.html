@@ -3,7 +3,7 @@
   <input type="text" placeholder="search the list" #searchItem (keyup)="onSearchItem(searchItem.value)">
 </div>
 
-<h3>You have <span *ngIf="todoItem.length; else emptyTag" >{{todoItem.length}} list</span> to do </h3>
+<h3>< You have <span *ngIf="todoItem.length; else emptyTag" >{{todoItem.length}} list</span> to do ></h3>
 <ul>
   <li *ngFor="let item of todoItem" (click)="onItemClick(item)" [@list1] [ngStyle]="{'display': item.isFinished || item.hide  ? 'none' : 'block' }">
     {{item.content}}
@@ -11,7 +11,7 @@
 </ul>
 <ng-template #emptyTag> ** Nothing **</ng-template>
 
-<h3><span *ngIf="clearItem.length;" >{{clearItem.length}} list</span> You Finished!</h3>
+<h3>< <span *ngIf="clearItem.length;" >{{clearItem.length}} list</span> You Finished! ></h3>
 <ul>
   <li *ngFor="let item of clearItem" (click)="onItemClick(item)" [@list1] [ngStyle]="{'display': item.hide  ? 'none' : 'block' }">
       {{item.content}} <span class="finsihed"> Finished! </span>
