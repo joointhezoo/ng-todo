@@ -5,7 +5,7 @@
 
 <h3>You have <span *ngIf="todoItem.length; else emptyTag" >{{todoItem.length}} list</span> to do </h3>
 <ul>
-  <li *ngFor="let item of allItems" (click)="onItemClick(item)" [ngStyle]="{'display': item.isFinished || item.hide  ? 'none' : 'block' }">
+  <li *ngFor="let item of todoItem" (click)="onItemClick(item)" [@list1] [ngStyle]="{'display': item.isFinished || item.hide  ? 'none' : 'block' }">
     {{item.content}}
   </li>
 </ul>
@@ -13,7 +13,7 @@
 
 <h3><span *ngIf="clearItem.length;" >{{clearItem.length}} list</span> You Finished!</h3>
 <ul>
-  <li *ngFor="let item of clearItem" (click)="onItemClick(item)" [ngStyle]="{'display': item.hide  ? 'none' : 'block' }">
+  <li *ngFor="let item of clearItem" (click)="onItemClick(item)" [@list1] [ngStyle]="{'display': item.hide  ? 'none' : 'block' }">
       {{item.content}} <span class="finsihed"> Finished! </span>
   </li>
 </ul>
@@ -29,4 +29,3 @@
   <input type="text" placeholder="add new list" #newItem (keydown.enter)="onAddItem(newItem)">
   <button (click)="onAddItem(newItem)">ADD</button>
 </div>
-

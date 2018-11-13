@@ -9,7 +9,9 @@ li{
   padding: 8px 15px;
   cursor: pointer;
 }
-
+li:hover{
+  background: #176578;
+}
 input, button {
   margin-top: 10px;
   padding: 5px 8px;
