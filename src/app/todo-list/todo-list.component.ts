@@ -9,13 +9,12 @@ import { TodoService } from '../todo.service';
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.css'],
   encapsulation: ViewEncapsulation.Native
-
 })
 export class TodoListComponent implements OnInit {
 
-  allItems: TodoList[];
-  todoItem: TodoList[];
-  clearItem: TodoList[];
+  allItems: any = [];
+  todoItem: any= [];
+  clearItem = [];
 
   constructor(private todoService: TodoService, private http: HttpClient) { }
 
@@ -34,9 +33,9 @@ export class TodoListComponent implements OnInit {
   }
 
   getItem() {
-    this.todoService.getFinished().subscribe(clearLists => this.clearItem = clearLists );
-    this.todoService.getUnFinished().subscribe(unclearLists => this.todoItem = unclearLists);
-    this.todoService.saveTodo();
+    this.todoService.getFinished().subscribe(res => this.clearItem = res );
+    this.todoService.getUnFinished().subscribe(res => this.todoItem = res);
+    this.todoService.saveTodo(this.allItems);
   }
 
   onItemClick(item: TodoList) {
@@ -55,14 +54,14 @@ export class TodoListComponent implements OnInit {
       isFinished: false
     });
     newItem.value = "";
-
+    this.todoService.updateTodo(this.allItems);
     this.getItem();
   }
 
   onClear(){
-    this.allItems = this.todoService.cleanFinished();
+    this.todoService.getUnFinished().subscribe(res => this.allItems =  res);
     this.clearItem = [];
-    this.todoService.saveTodo();
+    this.todoService.saveTodo(this.allItems);
   }
 
   onSearchItem(term: string){
