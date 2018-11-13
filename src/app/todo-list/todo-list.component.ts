@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 import { TodoList } from './todo-list.model';
 import { TodoService } from '../todo.service';
 
@@ -15,19 +17,26 @@ export class TodoListComponent implements OnInit {
   todoItem: TodoList[];
   clearItem: TodoList[];
 
-  constructor(private todoService: TodoService) { }
+  constructor(private todoService: TodoService, private http: HttpClient) { }
 
   ngOnInit() {
-    this.getItem();
+    this.getDb();
+  }
+
+  getDb() {
+    this.http.get('https://ng-todo-2261d.firebaseio.com/todo.json')
+      .subscribe(
+        res => {
+          this.allItems = res;
+          this.todoService.updateTodo(this.allItems);
+          this.getItem();
+        });
   }
 
   getItem() {
-    this.todoService.getTodos().subscribe(items => {
-      this.allItems = items});
-
     this.todoService.getFinished().subscribe(clearLists => this.clearItem = clearLists );
     this.todoService.getUnFinished().subscribe(unclearLists => this.todoItem = unclearLists);
-
+    this.todoService.saveTodo();
   }
 
   onItemClick(item: TodoList) {
@@ -46,11 +55,14 @@ export class TodoListComponent implements OnInit {
       isFinished: false
     });
     newItem.value = "";
+
+    this.getItem();
   }
 
   onClear(){
     this.allItems = this.todoService.cleanFinished();
     this.clearItem = [];
+    this.todoService.saveTodo();
   }
 
   onSearchItem(term: string){
