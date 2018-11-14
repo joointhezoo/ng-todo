@@ -10,11 +10,11 @@ import * as firebase from 'firebase';
 })
 
 export class AppComponent implements OnInit{
-  private date;
+/*  private date;
 
   constructor(){
     this.date = new Date();
-  };
+  };*/
 
   ngOnInit() {
     firebase.initializeApp(FIREBASE_API_KEY);

@@ -1,10 +1,20 @@
+.spring{
+  display: block;
+  width: 740px;
+  margin: 40px auto -10px;
+  z-index: 5;
+  height: 50px;
+  background: #fafafa url(../img/spring.png) no-repeat;
+  background-size: 740px;
+  padding: 25px 0 0;
+}
 .container {
   text-align: center;
   max-width: 700px;
-  margin: 40px auto 20px;
+  margin: 0 auto 20px;
   padding: 50px 20px;
-  border :3px solid #94b4bd;
-  border-top: 20px dotted #333;
+  border :2px solid #94b4bd;
+  border-top: none;
   background: #fafafa;
 }
 

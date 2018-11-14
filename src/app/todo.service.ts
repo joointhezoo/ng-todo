@@ -19,9 +19,8 @@ export class TodoService {
       })
     };
 
-    const url = 'https://ng-todo-2261d.firebaseio.com/' + (id ? 'my-todo/' + id : 'todo') + '.json';
-
-    this.http.put(url, list, httpOptions);
+   const url = 'https://ng-todo-2261d.firebaseio.com/' + (id ? 'my-todo/' + id : 'todo') + '.json';
+   this.http.put(url, list, httpOptions).subscribe(res => console.log(res));
   }
 
   getUnFinished() {
