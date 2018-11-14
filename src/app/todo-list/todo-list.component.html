@@ -14,7 +14,7 @@
 <h3>< <span *ngIf="clearItem.length;" >{{clearItem.length}} list</span> You Finished! ></h3>
 <ul>
   <li *ngFor="let item of clearItem" (click)="onItemClick(item)" [@list1] [ngStyle]="{'display': item.hide  ? 'none' : 'block' }">
-      {{item.content}} <span class="finsihed"> Finished! </span>
+      {{item.content}} <span class="finished"> Finished! </span>
   </li>
 </ul>
 

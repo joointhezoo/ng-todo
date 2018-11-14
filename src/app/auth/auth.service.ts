@@ -10,6 +10,7 @@ export class AuthService {
 
   constructor(private router: Router) {}
 
+  // TODO: 토큰관리 (로그인/로그아웃)
   signup (uid: string, upwd: string) {
     firebase.auth().createUserWithEmailAndPassword(uid, upwd).then(
       res => this.login(uid, upwd)
@@ -38,12 +39,3 @@ export class AuthService {
     this.router.navigate(['./signin']);
   }
 }
-
-
-
-/**
- * 토큰관리 (로그인/로그아웃)
- * 로그인
- * 로그아웃
- * 회원가입
- ** */

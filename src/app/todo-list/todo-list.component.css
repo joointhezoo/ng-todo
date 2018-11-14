@@ -45,13 +45,10 @@ button{
   width: 100%;
 }
 
-span.finsihed{
+span.finished, .logout > span{
   color: #ffc107;  font-weight: bold;
 }
 
 .logout{
   margin-top: 30px;
-}
-.logout > span{
-  color: #ffc107;  font-weight: bold;
 }
