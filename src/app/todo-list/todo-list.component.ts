@@ -9,7 +9,7 @@ import {AuthService} from '../auth/auth.service';
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css'],
+  styleUrls: ['./todo-list.component.scss'],
   animations: [
     trigger('list1', [
       state('in', style({
@@ -104,7 +104,7 @@ export class TodoListComponent implements OnInit {
     }
 
     this.allItems.forEach(item => {
-      item.hide = item.content.match(term) === null;
+      item['hide'] = item.content.match(term) === null;
     });
 
     this.todoService.updateTodo(this.allItems);
