@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { enableProdMode } from '@angular/core';
+import { FIREBASE_API_KEY } from '../config';
 import * as firebase from 'firebase';
 
 @Component({
@@ -16,11 +17,7 @@ export class AppComponent implements OnInit{
   };
 
   ngOnInit() {
-    firebase.initializeApp({
-      apiKey: "AIzaSyDKO9N300zqhQrreLWHLOxZzbA4jnEwNEM",
-      authDomain: "ng-todo-2261d.firebaseapp.com",
-      databaseURL: "https://ng-todo-2261d.firebaseio.com"
-    });
+    firebase.initializeApp(FIREBASE_API_KEY);
   }
 }
 /*
