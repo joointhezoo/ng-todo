@@ -9,12 +9,12 @@ import * as firebase from 'firebase';
   styleUrls: ['./app.component.css']
 })
 
-export class AppComponent implements OnInit{
-/*  private date;
+export class AppComponent implements OnInit {
+  date;
 
-  constructor(){
+  constructor() {
     this.date = new Date();
-  };*/
+  }
 
   ngOnInit() {
     firebase.initializeApp(FIREBASE_API_KEY);
