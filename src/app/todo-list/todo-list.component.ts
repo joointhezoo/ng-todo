@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {TodoList} from './todo-list.model';
+import {TodoItem} from './todo-list.model';
 import {TodoService} from '../todo.service';
 import {AuthService} from '../auth/auth.service';
 
@@ -68,7 +68,7 @@ export class TodoListComponent implements OnInit {
     this.todoService.saveTodo(this.allItems, this.uid);
   }
 
-  onItemClick(item: TodoList) {
+  onItemClick(item: TodoItem) {
     item.isFinished = !item.isFinished;
     this.todoService.updateTodo(this.allItems);
     this.getItem();

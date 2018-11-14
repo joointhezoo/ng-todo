@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { TodoLists } from './todo-list/todo-list.model';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders
+} from '@angular/common/http';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class TodoService {
-  todoList = TodoLists;
+  todoList = [];
 
   constructor(private http: HttpClient) {}
 
