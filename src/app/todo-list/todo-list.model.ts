@@ -3,7 +3,7 @@ export class TodoList {
   content: string;
 }
 
-export const TodoLists:TodoList[] = [
+export const TodoLists: TodoList[] = [
   {
     isFinished : false,
     content: 'buy some apples'

@@ -1,0 +1,15 @@
+<h3>Let's do together</h3>
+
+<div class="form_wrap">
+  <form (ngSubmit)="onSignup(f)" #f="ngForm">
+    <div class="from-group">
+      <label for="id">ID : </label>
+      <input id="id" name="id" type="text" ngModel/>
+    </div>
+    <div class="from-group">
+      <label for="password">password : </label>
+      <input id="password" name="password" type="password" ngModel/>
+    </div>
+    <button type="submit" >sign up</button>
+  </form>
+</div>

@@ -1,0 +1,14 @@
+<form (ngSubmit)="onLogin(f)" #f="ngForm">
+
+  <div class="from-group">
+    <label for="id">ID : </label>
+    <input id="id" name="id" type="text" ngModel/>
+  </div>
+  <div class="from-group">
+    <label for="password">password : </label>
+    <input id="password" name="password" type="password" ngModel/>
+  </div>
+
+  <button type="button" #signupBtn routerLink="/signup">join us</button>
+  <button type="submit" >login</button>
+</form>

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
-import { animate, trigger, state, style, transition } from '@angular/animations';
-import { TodoList } from './todo-list.model';
-import { TodoService } from '../todo.service';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+import {TodoList} from './todo-list.model';
+import {TodoService} from '../todo.service';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -28,32 +29,43 @@ import { TodoService } from '../todo.service';
 export class TodoListComponent implements OnInit {
 
   allItems: any = [];
-  todoItem: any= [];
+  todoItem = [];
   clearItem = [];
+  uid = null;
 
-  constructor(private todoService: TodoService, private http: HttpClient) { }
+  constructor(private todoService: TodoService, private http: HttpClient, private authService: AuthService) {}
 
   ngOnInit() {
     this.getDb();
   }
 
   getDb() {
-    this.http.get('https://ng-todo-2261d.firebaseio.com/todo.json')
+    this.uid = this.authService.userId;
+    let url = 'https://ng-todo-2261d.firebaseio.com/todo.json';
+    if (this.uid) {
+      url = 'https://ng-todo-2261d.firebaseio.com/my-todo/' + this.uid + '.json';
+    }
+
+    this.http.get(url)
       .subscribe(
         res => {
           this.allItems = res;
           this.todoService.updateTodo(this.allItems);
-          this.allItems.filter(item => {
-            item.hide !== undefined ? delete item.hide : null;
-          });
-          this.getItem();
+          if (this.allItems !== null) {
+            this.allItems.filter(item => {
+              item['hide'] !== undefined ? delete item['hide'] : null ;
+            });
+            this.getItem();
+          } else {
+            this.allItems = [];
+          }
         });
   }
 
   getItem() {
-    this.todoService.getFinished().subscribe(res => this.clearItem = res );
+    this.todoService.getFinished().subscribe(res => this.clearItem = res);
     this.todoService.getUnFinished().subscribe(res => this.todoItem = res);
-    this.todoService.saveTodo(this.allItems);
+    this.todoService.saveTodo(this.allItems, this.uid);
   }
 
   onItemClick(item: TodoList) {
@@ -63,7 +75,7 @@ export class TodoListComponent implements OnInit {
   }
 
   onAddItem(newItem) {
-    if(newItem.value === ""){
+    if (newItem.value === '') {
       return false;
     }
 
@@ -71,23 +83,22 @@ export class TodoListComponent implements OnInit {
       content: newItem.value,
       isFinished: false
     });
-    newItem.value = "";
+    newItem.value = '';
     this.todoService.updateTodo(this.allItems);
     this.getItem();
   }
 
-  onClear(){
-    this.todoService.getUnFinished().subscribe(res => this.allItems =  res);
+  onClear() {
+    this.todoService.getUnFinished().subscribe(res => this.allItems = res);
     this.clearItem = [];
-    this.todoService.saveTodo(this.allItems);
+    this.todoService.saveTodo(this.allItems, this.uid);
   }
 
-  onSearchItem(term: string){
+  onSearchItem(term: string) {
 
-    console.log('serch[', term,']')
-    if(term == ""){
+    if (term === '') {
       this.allItems.filter(item => {
-        item.hide !== undefined ? delete item.hide : null;
+        item['hide'] !== undefined ? delete item['hide'] : null;
       });
       return false;
     }
@@ -99,5 +110,9 @@ export class TodoListComponent implements OnInit {
     this.todoService.updateTodo(this.allItems);
     this.getItem();
 
+  }
+
+  onLogout() {
+    this.authService.logout();
   }
 }
