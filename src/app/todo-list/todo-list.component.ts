@@ -52,7 +52,7 @@ export class TodoListComponent implements OnInit {
           this.allItems = res;
           this.todoService.updateTodo(this.allItems);
           if (this.allItems !== null) {
-            this.allItems.filter(item => {
+            this.allItems.forEach(item => {
               item['hide'] !== undefined ? delete item['hide'] : null ;
             });
             this.getItem();
@@ -97,13 +97,13 @@ export class TodoListComponent implements OnInit {
   onSearchItem(term: string) {
 
     if (term === '') {
-      this.allItems.filter(item => {
+      this.allItems.forEach(item => {
         item['hide'] !== undefined ? delete item['hide'] : null;
       });
       return false;
     }
 
-    this.allItems.filter(item => {
+    this.allItems.forEach(item => {
       item.hide = item.content.match(term) === null;
     });
 

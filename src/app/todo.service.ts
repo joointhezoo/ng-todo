@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 @Injectable({
@@ -24,15 +23,13 @@ export class TodoService {
   }
 
   getUnFinished() {
-    const emptyArr = [];
-    this.todoList.filter(i => i.isFinished === false ? emptyArr.push(i) : null);
+    const emptyArr =this.todoList.filter(i => !i.isFinished );
     this.todoList = emptyArr;
     return of(this.todoList);
   }
 
   getFinished(): Observable<any> {
-    const emptyArr = [];
-    this.todoList.filter(i => i.isFinished === true ? emptyArr.push(i) : null);
+    const emptyArr =this.todoList.filter(i => i.isFinished );
     return of(emptyArr);
   }
 
