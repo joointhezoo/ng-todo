@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 
 import {TodoItem} from './todo-list.model';
 import {TodoService} from '../todo.service';
 import {AuthService} from '../auth/auth.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-todo-list',
@@ -17,33 +17,28 @@ export class TodoListComponent implements OnInit {
   clearItem = [];
   uid = null;
 
-  constructor(private todoService: TodoService, private http: HttpClient, private authService: AuthService) {}
+  constructor(private todoService: TodoService, private authService: AuthService) {}
 
   ngOnInit() {
     this.getDb();
   }
 
   getDb() {
+    const fireDb =  firebase.database();
     this.uid = this.authService.userId;
-    let url = 'https://ng-todo-2261d.firebaseio.com/todo.json';
-    if (this.uid) {
-      url = 'https://ng-todo-2261d.firebaseio.com/my-todo/' + this.uid + '.json';
-    }
-
-    this.http.get(url)
-      .subscribe(
-        res => {
-          this.allItems = res;
-          this.todoService.updateTodo(this.allItems);
-          if (this.allItems !== null) {
-            this.allItems.forEach(item => {
-              if ( item['hide'] !== undefined ) { delete item['hide']; }
-            });
-            this.getItem();
-          } else {
-            this.allItems = [];
-          }
+    const refUrl = (this.uid ? 'my-todo/' + this.uid : 'todo');
+    fireDb.ref(refUrl).once('value').then( snapshot => {
+      this.allItems = snapshot.val();
+      this.todoService.updateTodo(this.allItems);
+      if (this.allItems !== null) {
+        this.allItems.forEach(item => {
+          if ( item['hide'] !== undefined ) { delete item['hide']; }
         });
+        this.getItem();
+      } else {
+        this.allItems = [];
+      }
+    });
   }
 
   getItem() {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import * as firebase from 'firebase';
 
 
 @Injectable({
@@ -9,27 +9,24 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class TodoService {
   todoList = [];
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   saveTodo(list, id) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
-    };
+    const fireDb =  firebase.database();
+    const refUrl = (id ? 'my-todo/' + id : 'todo');
+    fireDb.ref(refUrl)
+      .set(list);
 
-   const url = 'https://ng-todo-2261d.firebaseio.com/' + (id ? 'my-todo/' + id : 'todo') + '.json';
-   this.http.put(url, list, httpOptions).subscribe(res => console.log(res));
   }
 
   getUnFinished() {
-    const emptyArr =this.todoList.filter(i => !i.isFinished );
+    const emptyArr = this.todoList.filter(i => !i.isFinished );
     this.todoList = emptyArr;
     return of(this.todoList);
   }
 
   getFinished(): Observable<any> {
-    const emptyArr =this.todoList.filter(i => i.isFinished );
+    const emptyArr = this.todoList.filter(i => i.isFinished );
     return of(emptyArr);
   }
 
