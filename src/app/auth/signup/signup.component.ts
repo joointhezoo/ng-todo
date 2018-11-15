@@ -1,18 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
 
-import { AuthService } from '../auth.service';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss',
-    '../signin/signin.component.scss']
+  styleUrls: ['../signin/signin.component.scss', './signup.component.scss']
 })
 export class SignupComponent implements OnInit {
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }

@@ -1,26 +1,28 @@
 form {
-  margin: 30px 0 0;
+  margin: 30px 0 ;
 
-  label {
-    width: 30%;
-    max-width: 85px;
+  label,input{
+    margin: 20px auto;
+    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
     text-align: left;
-    font-size: 14px;
+    display: block;
   }
 
   input {
-    width: 70%;
-    max-width: 280px;
-    text-align: left;
     background: none;
     border: none;
     border-bottom: 1px solid #ccc;
-    margin : 10px 0 ;
-    font-size: 14px;
     padding: 5px 8px;
   }
 
 
+  .btnWrap{
+    width: 100%;
+    position: absolute;
+    bottom: 50px;
+  }
   button{
     background: none;
     padding: 8px 15px;
@@ -35,7 +37,8 @@ form {
   }
 
   button:hover {
-    background: #fff;
+    background: #176578;
+    color: #fff;
   }
 }
 
