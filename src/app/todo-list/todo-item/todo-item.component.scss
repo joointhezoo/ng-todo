@@ -9,10 +9,10 @@ li{
     color: #ffc107;  font-weight: bold;
   }
 
+  &:hover{
+    border-bottom: 1px solid #333;
+    color: #000;
+  }
 }
 
-li:hover{
-  border-bottom: 1px solid #333;
-  color: #000;
-}
 

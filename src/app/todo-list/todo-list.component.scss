@@ -8,11 +8,12 @@ input, button {
   padding: 5px 8px;
   background: #fff;
   border: 1px solid #1b6d85;
+
+  &::placeholder{
+    color: #567f85;
+  }
 }
 
-input::placeholder{
-  color: #567f85;
-}
 
 button{
   color: #1b6d85;
@@ -35,7 +36,7 @@ button{
 
 .logout{
   margin-top: 30px;
-
+  cursor: pointer;
   span{
     color: #ffc107;  text-decoration: underline;
   }

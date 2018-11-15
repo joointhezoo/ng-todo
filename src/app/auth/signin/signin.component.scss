@@ -17,11 +17,8 @@ form {
     padding: 5px 8px;
   }
 
-
   .btnWrap{
     width: 100%;
-    position: absolute;
-    bottom: 50px;
   }
   button{
     background: none;
@@ -30,15 +27,15 @@ form {
     font-size: 15px;
     border: 1px solid #176578;
     color: #176578;
+    &:hover {
+      background: #176578;
+      color: #fff;
+    }
   }
 
   button[type="button"]{
     margin-right: 10px;
   }
 
-  button:hover {
-    background: #176578;
-    color: #fff;
-  }
 }
 
