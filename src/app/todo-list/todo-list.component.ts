@@ -31,9 +31,7 @@ export class TodoListComponent implements OnInit {
       this.allItems = snapshot.val();
       this.todoService.updateTodo(this.allItems);
       if (this.allItems !== null) {
-        this.allItems.forEach(item => {
-          if ( item['hide'] !== undefined ) { delete item['hide']; }
-        });
+        this.allItems.filter(item => item['hide'] !== undefined).map(item =>  delete item['hide']);
         this.getItem();
       } else {
         this.allItems = [];
@@ -76,9 +74,7 @@ export class TodoListComponent implements OnInit {
   onSearchItem(term: string) {
 
     if (term === '') {
-      this.allItems.forEach(item => {
-        if ( item['hide'] !== undefined ) { delete item['hide']; }
-      });
+      this.allItems.filter(item => item['hide'] !== undefined).map(item =>  delete item['hide']);
       return false;
     }
 
