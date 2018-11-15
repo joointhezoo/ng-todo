@@ -12,6 +12,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AppRoutingModule} from './app-routing.model';
 import { FormsModule } from '@angular/forms';
 import { TodoItemComponent } from './todo-list/todo-item/todo-item.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TodoItemComponent } from './todo-list/todo-item/todo-item.component';
     TodoListComponent,
     SigninComponent,
     SignupComponent,
-    TodoItemComponent
+    TodoItemComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
