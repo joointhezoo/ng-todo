@@ -1,11 +1,10 @@
+
 .spring{
   display: block;
-  width: 740px;
-  margin: 40px auto -10px;
-  z-index: 5;
-  height: 50px;
+  max-width: 740px;
+  margin: 40px auto 0;
   background: #fafafa url(../img/spring.png) no-repeat;
-  background-size: 740px;
+  background-size: 100% 100%;
   padding: 25px 0 0;
 }
 .container {

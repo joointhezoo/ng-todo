@@ -2,28 +2,21 @@
 <div class="w100">
   <input type="text" placeholder="search the list" #searchItem (keyup)="onSearchItem(searchItem.value)">
 </div>
-
-<h3>< You have <span *ngIf="todoItem.length; else emptyTag" >{{todoItem.length}} list</span> to do ></h3>
-<ul>
-  <li *ngFor="let item of todoItem" (click)="onItemClick(item)" [@list1] [ngStyle]="{'display': item.isFinished || item.hide  ? 'none' : 'block' }">
-    {{item.content}}
-  </li>
+<h3>< You have <span *ngIf="todoItem.length; else emptyTag"   >{{todoItem.length}} list</span> to do ></h3>
+<ul *ngFor="let item of todoItem">
+  <app-todo-item [item]="item" (click)="onItemClick(item)" [ngStyle]="{'display': item.hide  ? 'none' : 'block' }"></app-todo-item>
 </ul>
 <ng-template #emptyTag> ** Nothing **</ng-template>
 
-<h3>< <span *ngIf="clearItem.length;" >{{clearItem.length}} list</span> You Finished! ></h3>
-<ul>
-  <li *ngFor="let item of clearItem" (click)="onItemClick(item)" [@list1] [ngStyle]="{'display': item.hide  ? 'none' : 'block' }">
-      {{item.content}} <span class="finished"> Finished! </span>
-  </li>
+<h3><<span *ngIf="clearItem.length;" >{{clearItem.length}} list</span> You Finished! ></h3>
+<ul *ngFor="let item of clearItem">
+  <app-todo-item [item]="item" (click)="onItemClick(item)"  [ngStyle]="{'display': item.hide  ? 'none' : 'block' }"></app-todo-item>
 </ul>
 
 <p *ngIf="!clearItem.length; else clearBtn">** You didn't finish yet? **</p>
 <ng-template #clearBtn>
   <span class="clearBtn" (click)="onClear()">clear finished list</span>
 </ng-template>
-
-
 
 <div class="w100">
   <input type="text" placeholder="add new list" #newItem (keydown.enter)="onAddItem(newItem)">

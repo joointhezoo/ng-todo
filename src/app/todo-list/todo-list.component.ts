@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
-import {animate, state, style, transition, trigger} from '@angular/animations';
 import {TodoItem} from './todo-list.model';
 import {TodoService} from '../todo.service';
 import {AuthService} from '../auth/auth.service';
@@ -9,22 +8,7 @@ import {AuthService} from '../auth/auth.service';
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss'],
-  animations: [
-    trigger('list1', [
-      state('in', style({
-        opacity: 1,
-        transform: 'translateX(0)'
-      })),
-      transition('void => *', [
-        style({
-          opacity: 0,
-          transform: 'translateX(-50px)'
-        }),
-        animate(500)
-      ])
-    ])
-  ]
+  styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
 
@@ -53,7 +37,7 @@ export class TodoListComponent implements OnInit {
           this.todoService.updateTodo(this.allItems);
           if (this.allItems !== null) {
             this.allItems.forEach(item => {
-              item['hide'] !== undefined ? delete item['hide'] : null ;
+              if ( item['hide'] !== undefined ) { delete item['hide']; }
             });
             this.getItem();
           } else {
@@ -98,7 +82,7 @@ export class TodoListComponent implements OnInit {
 
     if (term === '') {
       this.allItems.forEach(item => {
-        item['hide'] !== undefined ? delete item['hide'] : null;
+        if ( item['hide'] !== undefined ) { delete item['hide']; }
       });
       return false;
     }

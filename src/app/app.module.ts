@@ -11,13 +11,15 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AppRoutingModule} from './app-routing.model';
 import { FormsModule } from '@angular/forms';
+import { TodoItemComponent } from './todo-list/todo-item/todo-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListComponent,
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    TodoItemComponent
   ],
   imports: [
     BrowserModule,
