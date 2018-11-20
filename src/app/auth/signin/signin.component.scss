@@ -1,3 +1,5 @@
+@import '../../../styles';
+
 form {
   margin: 30px 0 ;
 
@@ -25,10 +27,10 @@ form {
     padding: 8px 15px;
     margin: 20px 0 0;
     font-size: 15px;
-    border: 1px solid #176578;
-    color: #176578;
+    border: 1px solid $darkGreen;
+    color: $darkGreen;
     &:hover {
-      background: #176578;
+      background: $darkGreen;
       color: #fff;
     }
   }
