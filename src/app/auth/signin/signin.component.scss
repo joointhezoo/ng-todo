@@ -33,10 +33,9 @@ form {
       background: $darkGreen;
       color: #fff;
     }
-  }
-
-  button[type="button"]{
-    margin-right: 10px;
+    &[type="button"]{
+      margin-right: 10px;
+    }
   }
 
 }

@@ -23,11 +23,11 @@
               "src/assets"
             ],
             "styles": [
-              "~src/styles.scss"
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "~src/styles.scss"
+                "src/styles.scss"
               ]
             },
             "scripts": []
@@ -84,11 +84,11 @@
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
             "styles": [
-              "~src/styles.scss"
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "~src/styles.scss"
+                "src/styles.scss"
               ]
             },
             "scripts": [],
@@ -141,5 +141,8 @@
       }
     }
   },
-  "defaultProject": "ng-todo"
+  "defaultProject": "ng-todo",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
