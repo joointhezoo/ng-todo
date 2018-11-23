@@ -1,20 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import {TodoItem} from './todo-list.model';
 import {TodoService} from '../todo.service';
-import {AuthService} from '../auth/auth.service';
 import {Store} from '@ngrx/store';
 import * as firebase from 'firebase';
 import * as AuthActions from '../../app/auth/store/auth.actions';
 import * as fromApp from '../store/app.reducers';
-import * as AuthInterceptor from '../auth/store/auth.interceptor';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.scss'],
-  providers : [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }]
+  styleUrls: ['./todo-list.component.scss']
 })
 export class TodoListComponent implements OnInit {
 
@@ -23,7 +19,7 @@ export class TodoListComponent implements OnInit {
   clearItem = [];
   uid = null;
 
-  constructor(private todoService: TodoService, private authService: AuthService, private store: Store<fromApp.AppState>) {}
+  constructor(private todoService: TodoService, private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
     this.getDb();
@@ -31,7 +27,7 @@ export class TodoListComponent implements OnInit {
 
   getDb() {
     const fireDb =  firebase.database();
-    this.uid = this.authService.userId;
+    this.uid = false;
     const refUrl = (this.uid ? 'my-todo/' + this.uid : 'todo');
     fireDb.ref(refUrl).once('value').then( snapshot => {
       this.allItems = snapshot.val();

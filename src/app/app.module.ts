@@ -7,7 +7,6 @@ import { StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoService } from './todo.service';
-import { AuthService } from './auth/auth.service';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AppRoutingModule} from './app-routing.model';
@@ -39,7 +38,7 @@ import { AuthEffects} from '../app/auth/store/auth.effects';
     EffectsModule.forRoot([AuthEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
-  providers: [TodoService, AuthService],
+  providers: [TodoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

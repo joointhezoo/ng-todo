@@ -15,22 +15,21 @@ export class AuthEffects {
   authSignup = this.action$
     .ofType(AuthActions.SIGN_UP)
     .pipe(map((action: AuthActions.Signup) => {
-      return action.payload;
-    }),
-      switchMap((authData: {username: string, password: string}) => {
-        return from(firebase.auth().createUserWithEmailAndPassword(authData.username, authData.password).then(
-          this.router.navigate(['/todo'])
-        ).catch(
-          err => alert(err.message)
-        ));
+        return action.payload;
       }),
-      mergeMap(() => {
+      switchMap((authData: {username: string, password: string}) => {
+        return from(firebase.auth().createUserWithEmailAndPassword(authData.username, authData.password))
+      }),
+      switchMap(() => {
         return from(firebase.auth().currentUser.getIdToken());
+      }),
+      switchMap(() => {
+        return this.router.navigate(['/todo']);
       })
     );
 
   @Effect()
-  authLogin = this.action$
+  authLogin  = this.action$
     .ofType(AuthActions.LOGIN)
     .pipe(map((action: AuthActions.Login) => {
       return action.payload;
@@ -38,11 +37,11 @@ export class AuthEffects {
     switchMap((authData: {username: string, password: string}) => {
       return from(firebase.auth().signInWithEmailAndPassword(authData.username, authData.password));
     }),
-      mergeMap(() => {
+      switchMap(() => {
       return from(firebase.auth().currentUser.getIdToken());
     }),
-      mergeMap(() => {
-        this.router.navigate(['/todo']);
+      switchMap(() => {
+        return this.router.navigate(['/todo']);
       })
     );
 
