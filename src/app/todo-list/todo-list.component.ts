@@ -3,7 +3,10 @@ import {Component, OnInit} from '@angular/core';
 import {TodoItem} from './todo-list.model';
 import {TodoService} from '../todo.service';
 import {AuthService} from '../auth/auth.service';
+import {Store} from '@ngrx/store';
 import * as firebase from 'firebase';
+import * as AuthActions from '../../app/auth/store/auth.actions';
+import * as fromApp from '../store/app.reducers';
 
 @Component({
   selector: 'app-todo-list',
@@ -17,7 +20,7 @@ export class TodoListComponent implements OnInit {
   clearItem = [];
   uid = null;
 
-  constructor(private todoService: TodoService, private authService: AuthService) {}
+  constructor(private todoService: TodoService, private authService: AuthService, private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
     this.getDb();
@@ -88,6 +91,7 @@ export class TodoListComponent implements OnInit {
   }
 
   onLogout() {
-    this.authService.logout();
+
+    this.store.dispatch(new AuthActions.Logout());
   }
 }
