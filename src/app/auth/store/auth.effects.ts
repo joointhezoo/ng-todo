@@ -18,13 +18,13 @@ export class AuthEffects {
         return action.payload;
       }),
       switchMap((authData: {username: string, password: string}) => {
-        return from(firebase.auth().createUserWithEmailAndPassword(authData.username, authData.password))
+        return from(firebase.auth().createUserWithEmailAndPassword(authData.username, authData.password));
       }),
       switchMap(() => {
         return from(firebase.auth().currentUser.getIdToken());
       }),
-      switchMap(() => {
-        return this.router.navigate(['/todo']);
+      tap(() => {
+        this.router.navigate(['/todo']);
       })
     );
 
@@ -37,12 +37,10 @@ export class AuthEffects {
     switchMap((authData: {username: string, password: string}) => {
       return from(firebase.auth().signInWithEmailAndPassword(authData.username, authData.password));
     }),
-      switchMap(() => {
-      return from(firebase.auth().currentUser.getIdToken());
-    }),
-      switchMap(() => {
-        return this.router.navigate(['/todo']);
-      })
+    switchMap((res) => {
+        this.router.navigate(['/todo']);
+        return [{type: AuthActions.SET_USER_ID}, {type: AuthActions.SET_USER_ID, payload:  res.user.uid}];
+    })
     );
 
   @Effect({dispatch: false})
@@ -52,10 +50,4 @@ export class AuthEffects {
       this.router.navigate(['/signin']);
     }) );
 
-  @Effect()
-  getDatabase = this.action$
-    .ofType(AuthActions.GET_DB)
-    .pipe(tap((action: AuthActions.GetDB) => {
-      return action.payload;
-    }));
 }

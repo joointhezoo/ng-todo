@@ -4,7 +4,7 @@ export interface State {
   userId: string;
 }
 
-const initState: State = {
+export const initState: State = {
   authenticated: false,
   userId: null
 };
@@ -24,7 +24,7 @@ export function AuthReducer(state = initState, action: AuthActions.AuthActions) 
         authenticated: false
       };
 
-    case (AuthActions.GET_DB):
+    case (AuthActions.SET_USER_ID):
       return {
         ...state,
         userId: action.payload

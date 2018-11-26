@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-
 import {TodoItem} from './todo-list.model';
 import {TodoService} from '../todo.service';
 import {Store} from '@ngrx/store';
 import * as firebase from 'firebase';
 import * as AuthActions from '../../app/auth/store/auth.actions';
 import * as fromApp from '../store/app.reducers';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-todo-list',
@@ -18,6 +18,7 @@ export class TodoListComponent implements OnInit {
   todoItem = [];
   clearItem = [];
   uid = null;
+  subscription: Subscription;
 
   constructor(private todoService: TodoService, private store: Store<fromApp.AppState>) {}
 
@@ -27,7 +28,7 @@ export class TodoListComponent implements OnInit {
 
   getDb() {
     const fireDb =  firebase.database();
-    this.uid = false;
+    this.subscription = this.store.select('auth').subscribe( data => this.uid = data.userId);
     const refUrl = (this.uid ? 'my-todo/' + this.uid : 'todo');
     fireDb.ref(refUrl).once('value').then( snapshot => {
       this.allItems = snapshot.val();
@@ -90,7 +91,7 @@ export class TodoListComponent implements OnInit {
   }
 
   onLogout() {
-
+    this.subscription.unsubscribe();
     this.store.dispatch(new AuthActions.Logout());
   }
 }
